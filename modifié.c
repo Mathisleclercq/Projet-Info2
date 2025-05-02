@@ -169,3 +169,47 @@ void place_OK(char piece[size][size], char grille[line][col], int gauche, int dr
         placer_piece(colone_choisie, grille_lines - 1, haut, bas, gauche, droite, piece, grille);  // **MODIF**
     }
 }
+
+
+
+
+
+int main() {
+    char grille[line][col];
+
+    // Initialisation de la grille
+    init_grille(grille);
+
+    // Définir une pièce (bloc carré "O")
+    char piece[size][size] = {
+        {' ', ' ', ' ', ' ', ' '},
+        {' ', 'X', 'X', ' ', ' '},
+        {' ', 'X', 'X', ' ', ' '},
+        {' ', ' ', ' ', ' ', ' '},
+        {' ', ' ', ' ', ' ', ' '}
+    };
+
+    // Afficher la grille vide
+    printf("Grille initiale :\n");
+    display_grille(grille);
+
+    // Afficher la pièce
+    printf("\nPiece à placer :\n");
+    display_piece(piece);
+
+    // Réduire la matrice pour identifier les bords utiles
+    int haut, bas, gauche, droite;
+    reduction_Matrice(&haut, &bas, &gauche, &droite, piece);
+
+    // Choisir une colonne (ex : colonne 3)
+    int colonne_choisie = 3;
+
+    // Placer la pièce sur la grille
+    place_OK(piece, grille, gauche, droite, haut, bas, colonne_choisie);
+
+    // Afficher la grille après placement
+    printf("\nGrille après placement :\n");
+    display_grille(grille);
+
+    return 0;
+}
