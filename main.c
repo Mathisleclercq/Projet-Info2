@@ -95,11 +95,77 @@ char delete_lines(char grille[line][col]){
     return grille;
 }
 
-char place_OK?(char grille[line][col],intgauche,int droite,int haut,int bas,int colone_choisie){
+void placer_piece(int colone_choisie,int grille_lines,int haut, int bas, int gauche,int droite,char piece[size][size],char grille[line][col]){
+    int colone;
+    for(int i =haut; i<= bas ;i++){
+        colone = colone_choisie;
+        for (int j = gauche;j<= droite;j++){
+            grille[grille_lines][colone] = piece[i][j];
+            
+            colone++; 
+        }
+        grille_lines++;
+    }
+}
+void place_OK(char piece[size][size],char grille[line][col],int gauche,int droite,int haut,int bas,int colone_choisie){
     int grille_lines,lines,colone;
-    for(grille_lines = 0 ; grille_lines<10-(haut-bas+1);grille_lines++){
+    int piece_placer = 0;
+    for(grille_lines = 0 ; grille_lines<line-(bas-haut+1);grille_lines++){
         lines = grille_lines;
         colone = colone_choisie;
-        
+        int collision = 0;
+        for(int i = haut; i<= bas;i++){
+            colone = colone_choisie;
+            for (int j = gauche;j<= droite;j++){
+                if(piece[i][j]=='X' && grille[lines][colone]=='X'){
+                     if(grille_lines== 0){
+                    printf("game over");
+                    }
+            else{
+                placer_piece(colone_choisie,grille_lines-1, haut,bas,gauche,droite,piece,grille);
+                    piece_placer = 1;
+                    }
+                }
+                colone++;
+            }
+            lines++;
+        }
+    }
+    if( piece_placer == 0){
+        placer_piece(colone_choisie,line-bas-haut+1, haut,bas,gauche,droite,piece,grille);
+    }
+}
+
+
+void reduction_Matrice(int* haut,int* bas,int* gauche,int* droite,char piece[size][size]){
+    *haut = -1;
+    *bas = -1;
+    *gauche = -1;
+    *droite = -1;
+    for(int i =0; i<size; i++){
+        for(int j =0; j<size; j++){
+            if(piece[i][j]=='X'){
+                if(*haut== -1){
+                    *haut = i;
+                }
+                else{
+                    *bas = i;
+                }
+                
+            }
+        }
+    }
+    for(int j =0; j<size; j++){
+        for(int i =0; i<size; i++){
+            if(piece[i][j]=='X'){
+                if(*gauche== -1){
+                    *gauche = j;
+                }
+                else{
+                    *droite = j;
+                }
+                
+            }
+        }
     }
 }
