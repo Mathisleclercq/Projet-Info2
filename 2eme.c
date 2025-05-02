@@ -49,6 +49,9 @@ void display_piece(char piece[size][size]){
 
 
 
+
+
+
 char rotation_piece(char piece[size][size]){
     char piece_echange[size][size];
     for(int i = 0;i<size ;i++){
@@ -63,6 +66,61 @@ char rotation_piece(char piece[size][size]){
     }
     return piece_echange[size][size];
 }
+
+
+
+
+
+
+char down_line(char grille[line][col],int Number_line){
+    int i,j,k;
+    for(i = Number_line;i>0;i--){
+        for(j=0; j<col ; j++){
+            grille[i][j]=grille[i+1][j];
+        }
+    }
+    for(k=0; k<col; k++ ){
+        grille[0][k]=" ";
+    }
+    return grille;
+}
+
+
+
+
+
+int check_full_line(char grille[line][col]){
+    int Number_line = 11;
+    int Number_croix
+    for(int i = 0;i<size ;i++){
+        Number_croix = 0;
+        for(int j = 0 ;j<size ;j++){
+            if(grille[i][j]=="X"){
+                Number_croix++;
+            }
+        }
+        if(Number_croix== 10){
+            Number_line = i;
+        }
+        
+    }
+    return Number_line
+}
+
+
+
+
+
+
+char delete_lines(char grille[line][col]){
+    int i,j,Number_line;
+    while(check_full_line(grille)!= 11){
+        Number_line = check_full_line(grille);
+        down_line(grille;Number_line)
+    }
+    return grille;
+}
+
 
 
 
