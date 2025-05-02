@@ -6,6 +6,9 @@
 #define size 5
 #define line 10
 #define col 10
+
+
+
 char init_grille(char grille[line][col]){
     for(int i = 0;i<line ;i++){
         for(int j = 0 ;j<col ;j++){
@@ -14,6 +17,9 @@ char init_grille(char grille[line][col]){
     }
     return grille[line][col];
 }
+
+
+
 void display_grille(char grille[line][col]){
     for(int k = 0;k<line ;k++){
         printf(" %d",k);
@@ -28,6 +34,9 @@ void display_grille(char grille[line][col]){
     }
 }
 
+
+
+
 void display_piece(char piece[size][size]){
     for(int i = 0;i<size ;i++){
         for(int j = 0 ;j<size ;j++){
@@ -36,6 +45,10 @@ void display_piece(char piece[size][size]){
         printf("\n");
     }
 }
+
+
+
+
 char rotation_piece(char piece[size][size]){
     char piece_echange[size][size];
     for(int i = 0;i<size ;i++){
@@ -50,6 +63,11 @@ char rotation_piece(char piece[size][size]){
     }
     return piece_echange[size][size];
 }
+
+
+
+
+
 void placer_piece(int colone_choisie,int grille_lines,int haut, int bas, int gauche,int droite,char piece[size][size],char grille[line][col]){
     int colone;
     for(int i =haut; i<= bas ;i++){
@@ -63,6 +81,11 @@ void placer_piece(int colone_choisie,int grille_lines,int haut, int bas, int gau
         grille_lines++;
     }
 }
+
+
+
+
+
 void reduction_Matrice(int* haut,int* bas,int* gauche,int* droite,char piece[size][size]){
     *haut = -1;
     *bas = -1;
@@ -96,6 +119,11 @@ void reduction_Matrice(int* haut,int* bas,int* gauche,int* droite,char piece[siz
     }
 }
 
+
+
+
+
+
 void place_OK(char piece[size][size],char grille[line][col],int gauche,int droite,int haut,int bas,int colone_choisie){
     int grille_lines,lines,colone;
     int piece_placer = 0;
@@ -125,6 +153,19 @@ void place_OK(char piece[size][size],char grille[line][col],int gauche,int droit
         placer_piece(colone_choisie,line-bas-haut+1, haut,bas,gauche,droite,piece,grille);
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
 int main() {
     char piece[size][size]= {{' ',' ',' ',' ',' '},
                                 {' ',' ',' ',' ',' '},
