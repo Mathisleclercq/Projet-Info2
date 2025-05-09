@@ -115,19 +115,20 @@ char rotation_piece(char piece[size][size]){
     return piece[size][size];
 }
 
-void placer_piece(int colone_choisie,int grille_lines,int haut, int bas, int gauche,int droite,char piece[size][size],char grille[line][col]){
+void placer_piece(int colone_choisie, int grille_lines, int haut, int bas, int gauche, int droite, char piece[size][size], char grille[line][col]) {
     int colone;
-    for(int i =haut; i<= bas ;i++){
+    for (int i = haut; i <= bas; i++) {
         colone = colone_choisie;
-        for (int j = gauche;j<= droite;j++){
-            if(grille[grille_lines][colone]== ' '){
-                grille[grille_lines][colone] = piece[i][j];
+        for (int j = gauche; j <= droite; j++) {
+            if (piece[i][j] == 'X') {  // ✅ Ne placer que les blocs actifs
+                grille[grille_lines][colone] = 'X';
             }
             colone++; 
         }
         grille_lines++;
     }
 }
+
 
 void reduction_Matrice(int* haut,int* bas,int* gauche,int* droite,char piece[size][size]){
     *haut = -1;
