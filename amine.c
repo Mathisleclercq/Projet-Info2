@@ -52,7 +52,7 @@ char init_grille(char grille[line][col]){
 void display_grille(char grille[line][col]) {
     printf("    ");
     for (int j = 0; j < col; j++) {
-        printf(" %d ", j);
+        printf(" %d  ", j);
     }
     printf("\n");
 
@@ -66,7 +66,7 @@ void display_grille(char grille[line][col]) {
         printf("%2d │", i);
         for (int j = 0; j < col; j++) {
             if (grille[i][j] == 'X')
-                printf("\033[32m■\033[0m │");
+                printf(" \033[32m■\033[0m │");
             else
                 printf("   │");
         }
@@ -88,9 +88,9 @@ void display_grille(char grille[line][col]) {
     printf("───┘\n");
 }
 
-void display_piece(char piece[size][size]){
-    for(int i = 0;i<size ;i++){
-        for(int j = 0 ;j<size ;j++){
+void display_piece(char piece[size][size]) {
+    for (int i = 0; i < size; i++) {
+        for (int j = 0; j < size; j++) {
             if (piece[i][j] == 'X')
                 printf("\033[36m■\033[0m");
             else
