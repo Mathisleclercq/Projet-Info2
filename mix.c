@@ -54,43 +54,59 @@ void select_piece(char *nomFichier){
         
         
         
-        void display_grille(char grille[line][col]){
-            for(int k = 0;k<line ;k++){
-                printf(" %d",k);
-            }
-            printf("\n");
-            for(int i = 0;i<line ;i++){
-                printf("|");
-                for(int j = 0 ;j<col ;j++){
-                    if(grille[i][j]=='X'){
-                        printf("\033[32m■\033[0m|");
-                    }
-                    else{
-                        printf(" |");
-                    }
-                }
-                printf("\n");
-            }
+        void display_grille(char grille[line][col]) {
+    printf("    ");
+    for (int j = 0; j < col; j++) {
+        printf(" %d ", j);
+    }
+    printf("\n");
+
+    printf("   ┌");
+    for (int j = 0; j < col - 1; j++) {
+        printf("───┬");
+    }
+    printf("───┐\n");
+
+    for (int i = 0; i < line; i++) {
+        printf("%2d │", i);
+        for (int j = 0; j < col; j++) {
+            if (grille[i][j] == 'X')
+                printf("\033[32m■\033[0m │");
+            else
+                printf("   │");
         }
-        
-        
-        
-        
-        void display_piece(char piece[size][size]){
-            for(int i = 0;i<size ;i++){
-                for(int j = 0 ;j<size ;j++){
-                        printf("%c",piece[i][j]);
-                }
-                printf("\n");
+        printf("\n");
+
+        if (i != line - 1) {
+            printf("   ├");
+            for (int j = 0; j < col - 1; j++) {
+                printf("───┼");
             }
+            printf("───┤\n");
         }
+    }
+
+    printf("   └");
+    for (int j = 0; j < col - 1; j++) {
+        printf("───┴");
+    }
+    printf("───┘\n");
+}
+
+void display_piece(char piece[size][size]){
+    for(int i = 0;i<size ;i++){
+        for(int j = 0 ;j<size ;j++){
+            if (piece[i][j] == 'X')
+                printf("\033[36m■\033[0m");
+            else
+                printf(" ");
+        }
+        printf("\n");
+    }
+}
         
         
-        
-        
-        
-        
-        
+         
         char rotation_piece(char piece[size][size]){
             char piece_echange[size][size];
             for(int i = 0;i<size ;i++){
