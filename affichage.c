@@ -1,6 +1,3 @@
-// Code exact de l'utilisateur copié ici sans modification de structure
-// Ajouté seulement les couleurs dans display_grille() et display_piece() avec carrés unicode
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
@@ -223,24 +220,25 @@ int check_full_line(char grille[line][col]){
     return Number_line;
 }
 
-void down_line(char grille[line][col],int Number_line){
-    for(int i = Number_line;i>0;i--){
-        for(int j=0; j<col ; j++){
-            grille[i][j]=grille[i-1][j];
+void down_line(char grille[line][col], int Number_line) {
+    for (int i = Number_line; i > 0; i--) {
+        for (int j = 0; j < col; j++) {
+            grille[i][j] = grille[i - 1][j];  // ✅ ligne du dessus
         }
     }
-    for(int k=0; k<col; k++ ){
-        grille[0][k]=' ';
+    for (int j = 0; j < col; j++) {
+        grille[0][j] = ' ';  // ligne du haut vidée
     }
 }
 
-void delete_lines(char grille[line][col]){
+
+void delete_lines(char grille[line][col]) {
     int Number_line;
-    while(check_full_line(grille)!= 11){
-        Number_line = check_full_line(grille);
-        down_line(grille,Number_line);
+    while ((Number_line = check_full_line(grille)) != 11) {
+        down_line(grille, Number_line);
     }
 }
+
 
 int main() {
     srand(time(NULL));
