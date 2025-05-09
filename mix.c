@@ -104,7 +104,7 @@ void display_piece(char piece[size][size]) {
         printf("\n");
     }
 }
-}
+
         
         
          
