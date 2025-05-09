@@ -1,3 +1,101 @@
+void display_grille(char grille[line][col],char numeroPiece[20]) {
+    printf("    ");
+    for (int j = 0; j < col; j++) {
+        printf(" %d  ", j);
+    }
+    printf("\n");
+
+    printf("   ┌");
+    for (int j = 0; j < col - 1; j++) {
+        printf("───┬");
+    }
+    printf("───┐\n");
+
+    for (int i = 0; i < line; i++) {
+        printf("%2d │", i);
+        for (int j = 0; j < col; j++) {
+            if (grille[i][j] == 'X')
+                char c = piece[i][j];
+		switch (c) {
+		 	case "A": 
+		 		printf(" \033[31m■\033[0m┃"); 
+		 		break; // Rouge
+		 	case "B": 
+		 		printf(" \033[32m■\033[0m┃"); 
+		 		break; // Vert
+		 	case "C": 
+		 		printf(" \033[34m■\033[0m┃"); 
+		 		break; // Bleu
+		 	case "D": 
+		 		printf(" \033[33m■\033[0m┃"); 
+		 		break; // Jaune
+		 	case "E": 
+		 		printf(" \033[36m■\033[0m┃"); 
+		 		break; // Cyan
+			case "F": 
+				printf(" \033[35m■\033[0m┃"); 
+				break; // Magenta
+		 	case "G": 
+		 		printf(" \033[91m■\033[0m┃"); 
+		 		break; // Rouge clair
+            else
+                printf("   │");
+        }
+        printf("\n");
+
+        if (i != line - 1) {
+            printf("   ├");
+            for (int j = 0; j < col - 1; j++) {
+                printf("───┼");
+            }
+            printf("───┤\n");
+        }
+    }
+
+    printf("   └");
+    for (int j = 0; j < col - 1; j++) {
+        printf("───┴");
+    }
+    printf("───┘\n");
+}
+
+void display_piece(char piece[size][size]) {
+
+    for (int i = 0; i < size; i++) {
+        for (int j = 0; j < size; j++) {
+            if (piece[i][j] != ' ')
+            	char c = piece[i][j];
+		switch (c) {
+		 	case "A": 
+		 		printf("\033[31m■\033[0m┃"); 
+		 		break; // Rouge
+		 	case "B": 
+		 		printf("\033[32m■\033[0m┃"); 
+		 		break; // Vert
+		 	case "C": 
+		 		printf("\033[34m■\033[0m┃"); 
+		 		break; // Bleu
+		 	case "D": 
+		 		printf("\033[33m■\033[0m┃"); 
+		 		break; // Jaune
+		 	case "E": 
+		 		printf("\033[36m■\033[0m┃"); 
+		 		break; // Cyan
+			case "F": 
+				printf("\033[35m■\033[0m┃"); 
+				break; // Magenta
+		 	case "G": 
+		 		printf("\033[91m■\033[0m┃"); 
+		 		break; // Rouge clair
+
+            else
+                printf(" ");
+        }
+        printf("\n");
+    }
+}
+
+
 #include <stdio.h>
 #include <stdio.h>
 #include <stdlib.h>
