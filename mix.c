@@ -1,101 +1,3 @@
-void display_grille(char grille[line][col],char numeroPiece[20]) {
-    printf("    ");
-    for (int j = 0; j < col; j++) {
-        printf(" %d  ", j);
-    }
-    printf("\n");
-
-    printf("   ┌");
-    for (int j = 0; j < col - 1; j++) {
-        printf("───┬");
-    }
-    printf("───┐\n");
-
-    for (int i = 0; i < line; i++) {
-        printf("%2d │", i);
-        for (int j = 0; j < col; j++) {
-            if (grille[i][j] == 'X')
-                char c = piece[i][j];
-		switch (c) {
-		 	case "A": 
-		 		printf(" \033[31m■\033[0m┃"); 
-		 		break; // Rouge
-		 	case "B": 
-		 		printf(" \033[32m■\033[0m┃"); 
-		 		break; // Vert
-		 	case "C": 
-		 		printf(" \033[34m■\033[0m┃"); 
-		 		break; // Bleu
-		 	case "D": 
-		 		printf(" \033[33m■\033[0m┃"); 
-		 		break; // Jaune
-		 	case "E": 
-		 		printf(" \033[36m■\033[0m┃"); 
-		 		break; // Cyan
-			case "F": 
-				printf(" \033[35m■\033[0m┃"); 
-				break; // Magenta
-		 	case "G": 
-		 		printf(" \033[91m■\033[0m┃"); 
-		 		break; // Rouge clair
-            else
-                printf("   │");
-        }
-        printf("\n");
-
-        if (i != line - 1) {
-            printf("   ├");
-            for (int j = 0; j < col - 1; j++) {
-                printf("───┼");
-            }
-            printf("───┤\n");
-        }
-    }
-
-    printf("   └");
-    for (int j = 0; j < col - 1; j++) {
-        printf("───┴");
-    }
-    printf("───┘\n");
-}
-
-void display_piece(char piece[size][size]) {
-
-    for (int i = 0; i < size; i++) {
-        for (int j = 0; j < size; j++) {
-            if (piece[i][j] != ' ')
-            	char c = piece[i][j];
-		switch (c) {
-		 	case "A": 
-		 		printf("\033[31m■\033[0m┃"); 
-		 		break; // Rouge
-		 	case "B": 
-		 		printf("\033[32m■\033[0m┃"); 
-		 		break; // Vert
-		 	case "C": 
-		 		printf("\033[34m■\033[0m┃"); 
-		 		break; // Bleu
-		 	case "D": 
-		 		printf("\033[33m■\033[0m┃"); 
-		 		break; // Jaune
-		 	case "E": 
-		 		printf("\033[36m■\033[0m┃"); 
-		 		break; // Cyan
-			case "F": 
-				printf("\033[35m■\033[0m┃"); 
-				break; // Magenta
-		 	case "G": 
-		 		printf("\033[91m■\033[0m┃"); 
-		 		break; // Rouge clair
-
-            else
-                printf(" ");
-        }
-        printf("\n");
-    }
-}
-
-
 #include <stdio.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -112,7 +14,7 @@ void select_piece(char *nomFichier){
     int Number_piece;
     char nombreTransformer[2];
     char txt[] = ".txt";
-    Number_piece = rand() %7 + 1;
+    Number_piece = rand() % 4 + 1;
     sprintf(nombreTransformer, "%d", Number_piece);
     strcpy(nomFichier, "piece");
     strcat(nomFichier, nombreTransformer);
@@ -153,59 +55,112 @@ void select_piece(char *nomFichier){
         
         
         void display_grille(char grille[line][col]) {
-    printf("    ");
-    for (int j = 0; j < col; j++) {
-        printf(" %d ", j);
-    }
-    printf("\n");
-
-    printf("   ┌");
-    for (int j = 0; j < col - 1; j++) {
-        printf("───┬");
-    }
-    printf("───┐\n");
-
-    for (int i = 0; i < line; i++) {
-        printf("%2d │", i);
-        for (int j = 0; j < col; j++) {
-            if (grille[i][j] == 'X')
-                printf("\033[32m█\033[0m │");
-            else
-                printf("   │");
-        }
-        printf("\n");
-
-        if (i != line - 1) {
-            printf("   ├");
-            for (int j = 0; j < col - 1; j++) {
-                printf("───┼");
+            printf("    ");
+            for (int j = 0; j < col; j++) {
+                printf(" %d  ", j);
             }
-            printf("───┤\n");
+            printf("\n");
+        
+            printf("   ┌");
+            for (int j = 0; j < col - 1; j++) {
+                printf("───┬");
+            }
+            printf("───┐\n");
+        
+            for (int i = 0; i < line; i++) {
+                printf("%2d │", i);
+                for (int j = 0; j < col; j++) {
+                    if (grille[i][j] == 'A' ||grille[i][j] == 'B' ||grille[i][j] == 'C' ||grille[i][j] == 'D' ||grille[i][j] == 'E' ||grille[i][j] == 'F' ||grille[i][j] == 'G'){
+                        char c =grille[i][j];
+                switch (c) {
+                     case 'A': 
+                         printf(" \033[31m■\033[0m┃"); 
+                         break; // Rouge
+                     case 'B': 
+                         printf(" \033[32m■\033[0m┃"); 
+                         break; // Vert
+                     case 'C': 
+                         printf(" \033[34m■\033[0m┃"); 
+                         break; // Bleu
+                     case 'D': 
+                         printf(" \033[33m■\033[0m┃"); 
+                         break; // Jaune
+                     case 'E': 
+                         printf(" \033[36m■\033[0m┃"); 
+                         break; // Cyan
+                    case 'F': 
+                        printf(" \033[35m■\033[0m┃"); 
+                        break; // Magenta
+                     case 'G': 
+                         printf(" \033[91m■\033[0m┃"); 
+                         break; // Rouge clair
+                     }
+                 }
+                    else
+                        printf("   │");
+                }
+                printf("\n");
+        
+                if (i != line - 1) {
+                    printf("   ├");
+                    for (int j = 0; j < col - 1; j++) {
+                        printf("───┼");
+                    }
+                    printf("───┤\n");
+                }
+            }
+        
+            printf("   └");
+            for (int j = 0; j < col - 1; j++) {
+                printf("───┴");
+            }
+            printf("───┘\n");
         }
-    }
-
-    printf("   └");
-    for (int j = 0; j < col - 1; j++) {
-        printf("───┴");
-    }
-    printf("───┘\n");
-}
-
-void display_piece(char piece[size][size]) {
-    for (int i = 0; i < size; i++) {
-        for (int j = 0; j < size; j++) {
-            if (piece[i][j] == 'X')
-                printf("\033[36m█\033[0m");
-            else
-                printf(" ");
-        }
-        printf("\n");
-    }
-}
-
         
         
-         
+        void display_piece(char piece[size][size]) {
+        
+            for (int i = 0; i < size; i++) {
+                for (int j = 0; j < size; j++) {
+                    if (piece[i][j] != ' '){
+                        char c = piece[i][j];
+                switch (c) {
+                     case 'A': 
+                         printf(" \033[31m■\033[0m┃"); 
+                         break; // Rouge
+                     case 'B': 
+                         printf(" \033[32m■\033[0m┃"); 
+                         break; // Vert
+                     case 'C': 
+                         printf(" \033[34m■\033[0m┃"); 
+                         break; // Bleu
+                     case 'D': 
+                         printf(" \033[33m■\033[0m┃"); 
+                         break; // Jaune
+                     case 'E': 
+                         printf(" \033[36m■\033[0m┃"); 
+                         break; // Cyan
+                    case 'F': 
+                        printf(" \033[35m■\033[0m┃"); 
+                        break; // Magenta
+                     case 'G': 
+                         printf(" \033[91m■\033[0m┃"); 
+                         break; // Rouge clair
+                     }
+                }
+                    else
+                        printf(" ");
+                }
+                printf("\n");
+            }
+        }
+        
+        
+        
+        
+        
+        
+        
         char rotation_piece(char piece[size][size]){
             char piece_echange[size][size];
             for(int i = 0;i<size ;i++){
@@ -223,7 +178,7 @@ void display_piece(char piece[size][size]) {
         
         
         
-void placer_piece(int colone_choisie,int grille_lines,int haut, int bas, int gauche,int droite,char piece[size][size],char grille[line][col]){
+        void placer_piece(int colone_choisie,int grille_lines,int haut, int bas, int gauche,int droite,char piece[size][size],char grille[line][col]){
             int colone;
             for(int i =haut; i<= bas ;i++){
                 colone = colone_choisie;
@@ -236,7 +191,6 @@ void placer_piece(int colone_choisie,int grille_lines,int haut, int bas, int gau
                 grille_lines++;
             }
         }
-
         
         
         
@@ -249,7 +203,7 @@ void placer_piece(int colone_choisie,int grille_lines,int haut, int bas, int gau
             *droite = -1;
             for(int i =0; i<size; i++){
                 for(int j =0; j<size; j++){
-                    if(piece[i][j]=='X'){
+                    if(piece[i][j]=='A' ||piece[i][j]=='B' ||piece[i][j]=='C' ||piece[i][j]=='D' ||piece[i][j]=='E' ||piece[i][j]=='F' ||piece[i][j]=='G' ){
                         if(*haut== -1){
                             *haut = i;
                         }
@@ -262,7 +216,7 @@ void placer_piece(int colone_choisie,int grille_lines,int haut, int bas, int gau
             }
             for(int j =0; j<size; j++){
                 for(int i =0; i<size; i++){
-                    if(piece[i][j]=='X'){
+                    if(piece[i][j]=='A' ||piece[i][j]=='B' ||piece[i][j]=='C' ||piece[i][j]=='D' ||piece[i][j]=='E' ||piece[i][j]=='F' ||piece[i][j]=='G' ){
                         if(*gauche== -1){
                             *gauche = j;
                         }
@@ -293,7 +247,7 @@ void placer_piece(int colone_choisie,int grille_lines,int haut, int bas, int gau
                 for (int i = haut; i <= bas; i++) {
                     int colone = colone_choisie;
                     for (int j = gauche; j <= droite; j++) {
-                        if (piece[i][j] == 'X' && grille[lines][colone] == 'X') {
+                        if ((piece[i][j]=='A' ||piece[i][j]=='B' ||piece[i][j]=='C' ||piece[i][j]=='D' ||piece[i][j]=='E' ||piece[i][j]=='F' ||piece[i][j]=='G' ) && (grille[lines][colone] == 'A' ||grille[lines][colone] == 'B' ||grille[lines][colone] == 'C' ||grille[lines][colone] == 'D' ||grille[lines][colone] == 'E' ||grille[lines][colone]== 'F' ||grille[lines][colone] == 'G')) {
                             collision = 1;
                             break;
                         }
@@ -329,7 +283,7 @@ void placer_piece(int colone_choisie,int grille_lines,int haut, int bas, int gau
             for(int i = 0;i<line ;i++){
                 Number_croix = 0;
                 for(int j = 0 ;j<col ;j++){
-                    if(grille[i][j]=='X'){
+                    if(grille[i][j] == 'A' ||grille[i][j] == 'B' ||grille[i][j] == 'C' ||grille[i][j] == 'D' ||grille[i][j] == 'E' ||grille[i][j]== 'F' ||grille[i][j] == 'G'){
                         Number_croix++;
                     }
                 }
@@ -351,7 +305,7 @@ void placer_piece(int colone_choisie,int grille_lines,int haut, int bas, int gau
                 grille[0][k]=' ';
             }
         }
-        void delete_lines(char grille[line][col],int* score){
+        void delete_lines(char grille[line][col],int* score,int* ligne_supprimer){
             int i,j,Number_line;
             int compter = 0;
             while(check_full_line(grille)!= 11){
@@ -360,6 +314,7 @@ void placer_piece(int colone_choisie,int grille_lines,int haut, int bas, int gau
                 compter++;
             }
             *score = *score + 100*compter;
+            *ligne_supprimer = *ligne_supprimer + compter;
         }
 void clear_screen(){
     printf("\033[H\033[J");
@@ -432,7 +387,9 @@ void ajouter_score(Joueur j) {
 }
 int main() {
     srand(time(NULL));
+    int tour = 1;
     int score = 0;
+    int ligne_supprimer = 0;
     int defaite = 0;
     char nomfi[20];
     char piece[size][size];
@@ -454,6 +411,7 @@ int main() {
         select_piece(nomfi);
         Matrice_piece(nomfi, piece); 
         clear_screen();
+        printf("--- Tour %d ---\n", tour);
         display_grille(grille);
         display_piece(piece);
         
@@ -463,6 +421,8 @@ int main() {
             if (JeTourne == 'd') {
                 rotation_piece(piece);
                 clear_screen();
+                printf("--- Tour %d ---\n", tour);
+                printf("Lignes supprimées : %d   |   Score : %d  \n", ligne_supprimer, score);
                 display_grille(grille);
                 display_piece(piece);
             } else if (JeTourne == 's') {
@@ -478,18 +438,18 @@ int main() {
         } while (colone_choisie < 0 || colone_choisie > col - (droite - gauche + 1) || verif != 1);
         
         place_OK(piece, grille, gauche, droite, haut, bas, colone_choisie,&defaite);
-        
+        tour++;
+        clear_screen();
+        printf("--- Tour %d ---\n", tour);
+        printf("Lignes supprimées : %d   |   Score : %d  \n", ligne_supprimer, score);
+        display_grille(grille);
+        delete_lines(grille,&score,&ligne_supprimer); 
         clear_screen();
         display_grille(grille);
-        delete_lines(grille,&score); 
-        clear_screen();
-        display_grille(grille);
+       
         }
         J1.score = score;
         ajouter_score(J1);
         display_score();
         return 0;
     }
-
-
-
