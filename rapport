@@ -1,0 +1,61 @@
+Rapport du projet — Tech-tris
+
+Équipe
+
+Le projet a été réalisé par Mathis Leclercq et Amine Ayad. Le travail a été effectué en binôme, avec une répartition des tâches équilibrée entre la gestion des pièces, de l’affichage et des fichiers de scores.
+
+Sujet
+
+Le projet consistait à développer un jeu de Tetris en langage C, jouable dans un terminal. Le jeu devait inclure :
+La sélection aléatoire de pièces
+La possibilité de faire pivoter et placer les pièces
+La suppression des lignes complètes
+La gestion d’un score
+L’enregistrement et l’affichage des meilleurs scores
+Une limite de temps pour jouer chaque pièce
+
+Problèmes rencontrés et solutions apportées
+
+1. Affichage de la grille
+
+Nous avions au départ un affichage répétitif de plusieurs grilles. Nous avons résolu cela en utilisant une fonction clear_screen() qui efface le terminal entre chaque mise à jour.
+
+2. Positionnement dans la grille
+
+La gestion des collisions et des limites de la grille a nécessité des ajustements pour vérifier que les pièces ne sortaient pas de l’écran.on a donc fait une fonction réduction matrice à fin que la matrice de la pièce soit délimitée.
+
+3. Sauvegarde des scores
+
+Nous avons utilisé des fichiers (highscore.txt) pour sauvegarder les scores. Une difficulté a été de gérer dynamiquement le nombre de joueurs ; cela a été résolu avec malloc .
+
+4. Tri des meilleurs scores
+
+Nous avons implémenté un tri simple (tri par sélection) pour afficher les meilleurs scores à la fin de chaque partie.
+
+5. Limitation de temps
+
+Pour ajouter un temps limité par pièce, nous avons utilisé les fonctions time() et difftime() de la bibliothèque <time.h>, avec un temps maximum défini par pièce.
+
+Organisation et méthode de travail
+
+Nous avons utilisé Visual Studio Code pour développer ensemble, en alternant le partage de code via Git ou par échange de fichiers. Chaque fonctionnalité majeure était testée indépendamment avant intégration dans le programme principal.
+
+Nous avons également fait un plan global dès le départ pour :
+Définir les fonctionnalités obligatoires
+Découper les tâches (affichage, logique des pièces, score, etc.)
+Tester chaque bloc indépendamment
+
+Résultats
+
+Le jeu est fonctionnel :
+
+Les pièces tombent aléatoirement
+
+Le joueur peut les faire tourner et les 
+positionner
+
+Les lignes complètes sont supprimées
+
+Le score est mis à jour et sauvegardé
+
+Un classement des meilleurs scores est affiché
