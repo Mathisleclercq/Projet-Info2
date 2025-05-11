@@ -1,26 +1,55 @@
-#include <stdio.h>
+// Librairies pour affichage, fichiers, temps et saisie clavier temporisée
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
 #include <string.h>  // for strcpy
+#include <unistd.h>      // pour select()
+#include <sys/select.h>  // pour fd_set et struct timeval
+
+
 #define size 5
 #define line 10
 #define col 10
+
+
+
+#ifdef _WIN32
+#define CLEAR_COMMAND "cls"
+#else
+#define CLEAR_COMMAND "clear"
+#endif
+
+
+
+// Structure pour stocker le nom et le score d'un joueur
 typedef struct {
     char nom[50];
     int score;
 } Joueur;
+
+
+
+// Efface le terminal (Windows ou Linux)
+void clear_screen() {
+    system(CLEAR_COMMAND);
+}
+
+
+// Génère un nom de fichier pour choisir une pièce aléatoire
 void select_piece(char *nomFichier){
     int Number_piece;
-    char nombreTransformer[2];
+    char nombreTransformer[10];
     char txt[] = ".txt";
-    Number_piece = rand() % 4 + 1;
+    Number_piece = rand() % 7 + 1;
     sprintf(nombreTransformer, "%d", Number_piece);
     strcpy(nomFichier, "piece");
     strcat(nomFichier, nombreTransformer);
     strcat(nomFichier, txt);
 }
 
+
+
+// Remplit la matrice 'piece' avec le contenu d'un fichier
     void Matrice_piece(const char *filename, char piece[size][size]) {
         FILE *fp = fopen(filename, "r");
         if (fp == NULL) {
@@ -43,6 +72,9 @@ void select_piece(char *nomFichier){
         }
         
         
+
+
+    // Initialise la grille avec des espaces vides
         char init_grille(char grille[line][col]){
             for(int i = 0;i<line ;i++){
                 for(int j = 0 ;j<col ;j++){
@@ -54,6 +86,9 @@ void select_piece(char *nomFichier){
         
         
         
+
+
+        // Affiche la grille avec des couleurs selon les caractères A-G
         void display_grille(char grille[line][col]) {
             printf("    ");
             for (int j = 0; j < col; j++) {
@@ -74,25 +109,25 @@ void select_piece(char *nomFichier){
                         char c =grille[i][j];
                 switch (c) {
                      case 'A': 
-                         printf(" \033[31m■\033[0m┃"); 
+                         printf(" \033[31m■\033[0m │"); 
                          break; // Rouge
                      case 'B': 
-                         printf(" \033[32m■\033[0m┃"); 
+                         printf(" \033[32m■\033[0m │"); 
                          break; // Vert
                      case 'C': 
-                         printf(" \033[34m■\033[0m┃"); 
+                         printf(" \033[34m■\033[0m │"); 
                          break; // Bleu
                      case 'D': 
-                         printf(" \033[33m■\033[0m┃"); 
+                         printf(" \033[33m■\033[0m │"); 
                          break; // Jaune
                      case 'E': 
-                         printf(" \033[36m■\033[0m┃"); 
+                         printf(" \033[36m■\033[0m │"); 
                          break; // Cyan
                     case 'F': 
-                        printf(" \033[35m■\033[0m┃"); 
+                        printf(" \033[35m■\033[0m │"); 
                         break; // Magenta
                      case 'G': 
-                         printf(" \033[91m■\033[0m┃"); 
+                         printf(" \033[91m■\033[0m │"); 
                          break; // Rouge clair
                      }
                  }
@@ -118,6 +153,9 @@ void select_piece(char *nomFichier){
         }
         
         
+
+
+        // Affiche une pièce avec ses couleurs
         void display_piece(char piece[size][size]) {
         
             for (int i = 0; i < size; i++) {
@@ -126,25 +164,25 @@ void select_piece(char *nomFichier){
                         char c = piece[i][j];
                 switch (c) {
                      case 'A': 
-                         printf(" \033[31m■\033[0m┃"); 
+                         printf(" \033[31m■\033[0m"); 
                          break; // Rouge
                      case 'B': 
-                         printf(" \033[32m■\033[0m┃"); 
+                         printf(" \033[32m■\033[0m"); 
                          break; // Vert
                      case 'C': 
-                         printf(" \033[34m■\033[0m┃"); 
+                         printf("\033[34m■\033[0m"); 
                          break; // Bleu
                      case 'D': 
-                         printf(" \033[33m■\033[0m┃"); 
+                         printf("\033[33m■\033[0m"); 
                          break; // Jaune
                      case 'E': 
-                         printf(" \033[36m■\033[0m┃"); 
+                         printf("\033[36m■\033[0m"); 
                          break; // Cyan
                     case 'F': 
-                        printf(" \033[35m■\033[0m┃"); 
+                        printf("\033[35m■\033[0m"); 
                         break; // Magenta
                      case 'G': 
-                         printf(" \033[91m■\033[0m┃"); 
+                         printf("\033[91m■\033[0m"); 
                          break; // Rouge clair
                      }
                 }
@@ -157,10 +195,8 @@ void select_piece(char *nomFichier){
         
         
         
-        
-        
-        
-        
+               
+        // Fait pivoter une pièce de 90 degrés
         char rotation_piece(char piece[size][size]){
             char piece_echange[size][size];
             for(int i = 0;i<size ;i++){
@@ -178,6 +214,8 @@ void select_piece(char *nomFichier){
         
         
         
+
+        // Place la pièce dans la grille aux bonnes coordonnées
         void placer_piece(int colone_choisie,int grille_lines,int haut, int bas, int gauche,int droite,char piece[size][size],char grille[line][col]){
             int colone;
             for(int i =haut; i<= bas ;i++){
@@ -195,7 +233,7 @@ void select_piece(char *nomFichier){
         
         
         
-        
+        // Réduit la zone utile d'une pièce (haut, bas, gauche, droite)
         void reduction_Matrice(int* haut,int* bas,int* gauche,int* droite,char piece[size][size]){
             *haut = -1;
             *bas = -1;
@@ -229,12 +267,10 @@ void select_piece(char *nomFichier){
             }
         }
         
+               
         
         
-        
-        
-        
-        
+        // Teste si la pièce peut être placée, sinon signale la défaite
         void place_OK(char piece[size][size], char grille[line][col], int gauche, int droite, int haut, int bas, int colone_choisie,int* defaite) {
             int grille_lines;
             int ligne_finale = -1;
@@ -277,6 +313,9 @@ void select_piece(char *nomFichier){
             placer_piece(colone_choisie, ligne_finale, haut, bas, gauche, droite, piece, grille);
         }
         
+
+
+        // Retourne l'indice d'une ligne pleine (ou 11 sinon)
         int check_full_line(char grille[line][col]){
             int Number_line = 11;
             int Number_croix;
@@ -294,6 +333,11 @@ void select_piece(char *nomFichier){
             }
             return Number_line;
         }
+
+
+
+
+        // Fait descendre les lignes au-dessus de la ligne supprimée
         void down_line(char grille[line][col],int Number_line){
             int i,j,k;
             for(i = Number_line;i>0;i--){
@@ -305,8 +349,12 @@ void select_piece(char *nomFichier){
                 grille[0][k]=' ';
             }
         }
+
+
+
+        // Supprime toutes les lignes pleines et met à jour le score
         void delete_lines(char grille[line][col],int* score,int* ligne_supprimer){
-            int i,j,Number_line;
+            int Number_line;
             int compter = 0;
             while(check_full_line(grille)!= 11){
                 Number_line = check_full_line(grille);
@@ -316,76 +364,113 @@ void select_piece(char *nomFichier){
             *score = *score + 100*compter;
             *ligne_supprimer = *ligne_supprimer + compter;
         }
-void clear_screen(){
-    printf("\033[H\033[J");
-}
 
 
 
-
-void display_score() {
-    FILE *fichier = fopen("highscores.txt", "r");
-    if (fichier == NULL) {
-        printf("Erreur d'ouverture du fichier.\n");
-        exit(1);
-    }
-    int nb_lignes = 0;
-    char c;
-    while ((c = fgetc(fichier)) != EOF) {
-        if (c == '\n') {
-            nb_lignes++;
+    // Affiche les 5 meilleurs scores depuis un fichier
+    void display_score() {
+        FILE *fichier = fopen("highscores.txt", "r");
+        if (fichier == NULL) {
+            printf("Erreur d'ouverture du fichier.\n");
+            exit(1);
         }
-    }
-    rewind(fichier);
-    Joueur *joueurs = malloc(nb_lignes * sizeof(Joueur));
-    if (joueurs == NULL) {
-        printf("Erreur d'allocation mémoire.\n");
-        fclose(fichier);
-        exit(1);
-    }
-    int compter = 0;
-    while (compter != nb_lignes) {
-        fscanf(fichier, "%s %d", joueurs[compter].nom, &joueurs[compter].score);
-        compter++;
-    }
-    fclose(fichier);
-    Joueur temp;
-    for (int i = 0; i < nb_lignes-1; i++) {
-        for (int j = i+1; j<nb_lignes; j++) {
-            if(joueurs[i].score <joueurs[j].score){
-            temp = joueurs[i];
-            joueurs[i] = joueurs[j];
-            joueurs[j] = temp;
+        int nb_lignes = 0;
+        char c;
+        while ((c = fgetc(fichier)) != EOF) {
+            if (c == '\n') {
+                nb_lignes++;
             }
         }
+        rewind(fichier);
+        Joueur *joueurs = malloc(nb_lignes * sizeof(Joueur));
+        if (joueurs == NULL) {
+            printf("Erreur d'allocation mémoire.\n");
+            fclose(fichier);
+            exit(1);
+        }
+        int compter = 0;
+        while (compter != nb_lignes) {
+            fscanf(fichier, "%s %d", joueurs[compter].nom, &joueurs[compter].score);
+            compter++;
+        }
+        fclose(fichier);
+        Joueur temp;
+        for (int i = 0; i < nb_lignes-1; i++) {
+            for (int j = i+1; j<nb_lignes; j++) {
+                if(joueurs[i].score <joueurs[j].score){
+                temp = joueurs[i];
+                joueurs[i] = joueurs[j];
+                joueurs[j] = temp;
+                }
+            }
+        }
+        printf("Meilleur score\n");
+        for (int k = 0; k < nb_lignes && k<5; k++) {
+            printf("%s : %d\n", joueurs[k].nom, joueurs[k].score);
+        }
+        free(joueurs);
     }
-    printf("Meilleur score\n");
-    for (int k = 0; k < nb_lignes && k<5; k++) {
-        printf("%s : %d\n", joueurs[k].nom, joueurs[k].score);
-    }
-    free(joueurs);
-}
-void ajouter_score(Joueur j) {
-    FILE *fichier = fopen("highscores.txt", "a+");
-    if (fichier == NULL) {
-        perror("Erreur ouverture fichier");
-        return;
-    }
-    fseek(fichier, 0, SEEK_END);
-    long taille = ftell(fichier);
-    fseek(fichier, 0, SEEK_SET);
-    int n;
-    if (taille == 0) {
-        for (int i = 0; i < 5; i++) {
+
+
+
+
+    // Ajoute le score actuel au fichier des scores
+    void ajouter_score(Joueur j) {
+        FILE *fichier = fopen("highscores.txt", "a+");
+        if (fichier == NULL) {
+            perror("Erreur ouverture fichier");
+            return;
+        }
+        fseek(fichier, 0, SEEK_END);
+        long taille = ftell(fichier);
+        fseek(fichier, 0, SEEK_SET);
+        if (taille == 0) {
+            for (int i = 0; i < 5; i++) {
+                fprintf(fichier, "%s %d\n", j.nom, j.score);
+            }
+        } 
+        else {
             fprintf(fichier, "%s %d\n", j.nom, j.score);
         }
-    } 
-    else {
-        fprintf(fichier, "%s %d\n", j.nom, j.score);
+        fclose(fichier);
     }
-    fclose(fichier);
-}
+
+
+
+
+    // Attend une entrée clavier pendant X secondes (pour timer)
+    int wait_for_input(int seconds) {
+        fd_set set;
+        struct timeval timeout;
+
+        FD_ZERO(&set);         
+        FD_SET(0, &set);       
+
+        timeout.tv_sec = seconds;
+        timeout.tv_usec = 0;
+
+        return select(1, &set, NULL, NULL, &timeout);
+    }
+
+
+
+
+    // Affiche l'état du jeu avec un nettoyage d'écran
+    void afficher_etat(int tour, int score, int lignes_supprimees, char grille[line][col]) {
+        clear_screen();  
+        printf("--- Tour %d ---\n", tour);
+        printf("Score : %d   |   Lignes supprimées : %d\n\n", score, lignes_supprimees);
+        display_grille(grille);
+    }
+
+
+
+
+
+
 int main() {
+
+
     srand(time(NULL));
     int tour = 1;
     int score = 0;
@@ -393,63 +478,112 @@ int main() {
     int defaite = 0;
     char nomfi[20];
     char piece[size][size];
-    char JeTourne;
     int haut, bas, gauche, droite;
     int colone_choisie;
     char grille[line][col];
     int verif;
     char nomJoueur[30];
     Joueur J1;
-    printf("donner un nom de joueur");
-    scanf("%s",&nomJoueur);
+
+
+
+    // Demande le nom du joueur et initialise la grille
+    printf("Donner un nom de joueur : ");
+    scanf("%s", nomJoueur);
     strcpy(J1.nom, nomJoueur);
     init_grille(grille);
-    
+
+
+
+    // Boucle principale du jeu
     while (defaite != 1) {
-         int tour_piece = 0;
-    
         select_piece(nomfi);
-        Matrice_piece(nomfi, piece); 
+        Matrice_piece(nomfi, piece);
+
+
+        // Affichage du jeu
         clear_screen();
-        printf("--- Tour %d ---\n", tour);
+        printf("               --- Tour %d ---               \n\n", tour);
+        printf("    Score : %d   |   Lignes supprimées : %d  \n\n", score, ligne_supprimer);
         display_grille(grille);
+        printf("\nPièce actuelle :\n");
         display_piece(piece);
-        
-        while (tour_piece != 1) {
-            printf("Appuyer sur d pour tourner la piece, sinon sur s pour continuer : ");
-            scanf(" %c", &JeTourne); 
-            if (JeTourne == 'd') {
-                rotation_piece(piece);
-                clear_screen();
-                printf("--- Tour %d ---\n", tour);
-                printf("Lignes supprimées : %d   |   Score : %d  \n", ligne_supprimer, score);
-                display_grille(grille);
-                display_piece(piece);
-            } else if (JeTourne == 's') {
-                tour_piece = 1;
+
+
+
+        // Gestion de la rotation de la pièce
+        char reponse;
+        do {
+            printf("Rotation (o/n) ? ");
+            scanf(" %c", &reponse);
+            while (getchar() != '\n');
+        } while (reponse != 'o' && reponse != 'O' && reponse != 'n' && reponse != 'N');
+
+        while (reponse == 'o' || reponse == 'O') {
+            rotation_piece(piece);
+            clear_screen();
+            printf("               --- Tour %d ---               \n\n", tour);
+            printf("    Score : %d   |   Lignes supprimées : %d  \n\n", score, ligne_supprimer);
+            display_grille(grille);
+            printf("\nPièce après rotation :\n");
+            display_piece(piece);
+
+            do {
+                printf("Encore (o/n) ? ");
+                scanf(" %c", &reponse);
+                while (getchar() != '\n');
+            } while (reponse != 'o' && reponse != 'O' && reponse != 'n' && reponse != 'N');
+        }
+
+
+        // Calcul des dimensions utiles de la pièce
+        reduction_Matrice(&haut, &bas, &gauche, &droite, piece);
+
+
+        // Placement avec limite de temps
+        printf("Tu as 4 secondes pour choisir la colonne : ");
+        fflush(stdout);
+        if (wait_for_input(4) == 1) {
+            verif = scanf("%d", &colone_choisie);
+            while (getchar() != '\n');
+
+            if (verif != 1 || colone_choisie < 0 || colone_choisie > col - (droite - gauche + 1)) {
+                printf("❌ Colonne invalide. Pièce placée aléatoirement\n");
+                sleep(2);
+                colone_choisie = rand() % (col - (droite - gauche + 1));
+                place_OK(piece, grille, gauche, droite, haut, bas, colone_choisie, &defaite);
+                tour++;
+                continue;
             }
         }
-        reduction_Matrice(&haut, &bas, &gauche, &droite, piece);
-        
-        do {
-            printf("Dans quelle colonne placer la piece ? ");
-            verif = scanf("%d", &colone_choisie);
-            while (getchar() != '\n'); 
-        } while (colone_choisie < 0 || colone_choisie > col - (droite - gauche + 1) || verif != 1);
-        
-        place_OK(piece, grille, gauche, droite, haut, bas, colone_choisie,&defaite);
+        else {
+            printf("\n⏱ Temps écoulé ! Pièce placée aléatoirement.\n");
+            sleep(2);
+            colone_choisie = rand() % (col - (droite - gauche + 1));
+            place_OK(piece, grille, gauche, droite, haut, bas, colone_choisie, &defaite);
+            tour++;
+            continue;
+        }
+
+
+        // Placement final et mise à jour de la grille
+        place_OK(piece, grille, gauche, droite, haut, bas, colone_choisie, &defaite);
+        delete_lines(grille, &score, &ligne_supprimer);
+
+
+        // Affichage pour le prochain tour
         tour++;
         clear_screen();
-        printf("--- Tour %d ---\n", tour);
-        printf("Lignes supprimées : %d   |   Score : %d  \n", ligne_supprimer, score);
+        printf("               --- Tour %d ---               \n\n", tour);
+        printf("    Score : %d   |   Lignes supprimées : %d  \n\n", score, ligne_supprimer);
         display_grille(grille);
-        delete_lines(grille,&score,&ligne_supprimer); 
-        clear_screen();
-        display_grille(grille);
-       
-        }
-        J1.score = score;
-        ajouter_score(J1);
-        display_score();
-        return 0;
     }
+
+
+
+    // Fin du jeu : sauvegarde et affichage des meilleurs scores
+    J1.score = score;
+    ajouter_score(J1);
+    display_score();
+    return 0;
+}
