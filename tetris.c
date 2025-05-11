@@ -296,7 +296,6 @@ void select_piece(char *nomFichier){
                 if (collision) {
                     ligne_finale = grille_lines - 1;
                     if(grille_lines== 0){
-                        printf("game over");
                         *defaite = 1;
                         return;
                             }
@@ -582,6 +581,7 @@ int main() {
 
 
     // Fin du jeu : sauvegarde et affichage des meilleurs scores
+    printf("\n💀 Partie terminée. Merci d’avoir joué, %s !\n", J1.nom);
     J1.score = score;
     ajouter_score(J1);
     display_score();
