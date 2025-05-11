@@ -1,6 +1,6 @@
-Tetris
+Tech-tris
 
-Un petit jeu de Tetris en terminal codé en langage C. Le joueur peut faire tourner et déplacer les pièces
+Un petit jeu de Tetris sur terminal codé en langage C. Le joueur peut faire tourner et placer les pièces
 , remplir des lignes pour marquer des points, et voir son score sauvegardé à la fin de la partie.
 
 POUR COMMENCER
@@ -22,13 +22,14 @@ INSTALLATION
         highscore.txt
 
 
-  Compilez le programme avec la commande :
+Compilez le programme avec la commande :
 
-  gcc tetris.c -o tetris
+      gcc tetris.c -o tetris
 
-. Exécutez le programme :
+Exécutez le programme :
 
-./tetris
+    ./tetris
+
 
 DÉMARRAGE
 
