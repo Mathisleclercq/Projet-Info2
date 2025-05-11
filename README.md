@@ -3,8 +3,6 @@ Tech-tris
 Un petit jeu de Tetris sur terminal codé en langage C. Le joueur peut faire tourner et placer les pièces
 , remplir des lignes pour marquer des points, et voir son score sauvegardé à la fin de la partie.
 
-POUR COMMENCER
-
 Voici comment démarrer avec le projet.
 
 PRÉ-REQUIS
