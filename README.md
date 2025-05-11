@@ -21,8 +21,7 @@ INSTALLATION
 
 
 Compilez le programme avec la commande :
-
-      gcc tetris.c -o tetris
+    copier le makefile puis tapez make dans le terminal
 
 Exécutez le programme :
 
