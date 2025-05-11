@@ -14,6 +14,7 @@ PRÉ-REQUIS
 
 INSTALLATION
 
+        copiez les fichiers suivants dans Dossier :
         tetris.c
         piece1.tkt à piece7.tkt
         highscore.txt
