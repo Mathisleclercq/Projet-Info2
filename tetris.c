@@ -197,20 +197,21 @@ void select_piece(char *nomFichier){
         
                
         // Fait pivoter une pièce de 90 degrés
-        char rotation_piece(char piece[size][size]){
-            char piece_echange[size][size];
-            for(int i = 0;i<size ;i++){
-                for(int j = 0 ;j<size ;j++){
-                    piece_echange[i][j] = piece[j][4-i];
-                }
-            }
-            for(int i = 0;i<size ;i++){
-                for(int j = 0 ;j<size ;j++){
-                   piece[i][j] = piece_echange[i][j] ;
-                }
-            }
-            return piece[size][size];
+        void rotation_piece(char piece[size][size]) {
+    char piece_echange[size][size];
+
+    for (int i = 0; i < size; i++) {
+        for (int j = 0; j < size; j++) {
+            piece_echange[i][j] = piece[size - 1 - j][i];
         }
+    }
+
+    for (int i = 0; i < size; i++) {
+        for (int j = 0; j < size; j++) {
+            piece[i][j] = piece_echange[i][j];
+        }
+    }
+}
         
         
         
