@@ -58,14 +58,14 @@ void select_piece(char *nomFichier){
         }
         
         for (int i = 0; i < size; i++) {
-        for (int j = 0; j < size; j++) {
+            for (int j = 0; j < size; j++) {
         int c = fgetc(fp);
         // Sauter les retours à la ligne si présents
         while (c == '\n' || c == '\r') {
-        c = fgetc(fp);
-        }
+                c = fgetc(fp);
+            }
         piece[i][j] = (char)c;
-        }
+            }
         }
         
         fclose(fp);
@@ -75,13 +75,12 @@ void select_piece(char *nomFichier){
 
 
     // Initialise la grille avec des espaces vides
-        char init_grille(char grille[line][col]){
+        void init_grille(char grille[line][col]){
             for(int i = 0;i<line ;i++){
                 for(int j = 0 ;j<col ;j++){
                     grille[i][j]=' ';
                 }
             }
-            return grille[line][col];
         }
         
         
